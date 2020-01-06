@@ -72,6 +72,8 @@ struct lcd4
 {
     // Vars
     const int dataPins[4] = {DATAPIN4, DATAPIN5, DATAPIN6, DATAPIN7};
+    bool scriptMode = false;
+    bool debugMode = false;
     
     // Read Functions
     /*
@@ -87,129 +89,20 @@ struct lcd4
     void iFunctionSet1();
     void iFunctionSet(int dataLength, int displayLines, int font);
     void iSetDisplay(int display, int cursor, int blink);
+    void iShiftCursorOrDisplay(int target, int direction);
     void iSetEntryMode(int increment, int shift);
     void iReturnHome();
     void iClearDisplay();
 
+    void setScriptMode(bool state);
+
     // Write Functions
     void wChar(char c);
+
+
     /*
         TODO: PLEASE IMPLEMENT WRITE FUNCTIONS
     */
     };
 
 #endif /*LCD4_HEADER*/
-
-
-// void returnHome()
-// {   
-//     Serial.println("[ESP8266][INSTRUCTION]-> \"Return Home\"");
-//     digitalWrite(DATAPIN4, LOW);
-//     digitalWrite(DATAPIN5, LOW);
-//     digitalWrite(DATAPIN6, LOW);
-//     digitalWrite(DATAPIN7, LOW);
-//     digitalWrite(READWRITE, LOW);
-//     digitalWrite(REGSELECT, LOW);
-//     iCommitWrite();
-
-//     digitalWrite(DATAPIN4, LOW);
-//     digitalWrite(DATAPIN5, HIGH);
-//     digitalWrite(DATAPIN6, LOW);
-//     digitalWrite(DATAPIN7, LOW);
-//     digitalWrite(READWRITE, LOW);
-//     digitalWrite(REGSELECT, LOW);
-//     iCommitWrite();
-
-// }
-
-// Implementation of the instructions.
-
-// void setScriptMode(bool scriptMode)
-// {
-//     if (scriptMode)
-//     {
-
-//     }
-// }
-
-
-
-// void L()
-// {
-//     Serial.println("[ESP8266][WRITE]-> \"L\"");
-//     digitalWrite(DATAPIN4, LOW);
-//     digitalWrite(DATAPIN5, LOW);
-//     digitalWrite(DATAPIN6, HIGH);
-//     digitalWrite(DATAPIN7, LOW);
-//     digitalWrite(READWRITE, LOW);
-//     digitalWrite(REGSELECT, HIGH);
-//     iCommitWrite();
-
-//     digitalWrite(DATAPIN4, LOW);
-//     digitalWrite(DATAPIN5, LOW);
-//     digitalWrite(DATAPIN6, HIGH);
-//     digitalWrite(DATAPIN7, HIGH);
-//     digitalWrite(READWRITE, LOW);
-//     digitalWrite(REGSELECT, HIGH);
-//     iCommitWrite();
-// }
-
-// void B()
-// {
-//     Serial.println("[ESP8266][WRITE]-> \"B\"");
-//     digitalWrite(DATAPIN4, LOW);
-//     digitalWrite(DATAPIN5, LOW);
-//     digitalWrite(DATAPIN6, HIGH);
-//     digitalWrite(DATAPIN7, LOW);
-//     digitalWrite(READWRITE, LOW);
-//     digitalWrite(REGSELECT, HIGH);
-//     iCommitWrite();
-
-//     digitalWrite(DATAPIN4, LOW);
-//     digitalWrite(DATAPIN5, HIGH);
-//     digitalWrite(DATAPIN6, LOW);
-//     digitalWrite(DATAPIN7, LOW);
-//     digitalWrite(READWRITE, LOW);
-//     digitalWrite(REGSELECT, HIGH);
-//     iCommitWrite();
-// }
-
-// void column()
-// {
-//     Serial.println("[ESP8266][WRITE]-> \":\"");
-//     digitalWrite(DATAPIN4, HIGH);
-//     digitalWrite(DATAPIN5, HIGH);
-//     digitalWrite(DATAPIN6, LOW);
-//     digitalWrite(DATAPIN7, LOW);
-//     digitalWrite(READWRITE, LOW);
-//     digitalWrite(REGSELECT, HIGH);
-//     iCommitWrite();
-
-//     digitalWrite(DATAPIN4, LOW);
-//     digitalWrite(DATAPIN5, HIGH);
-//     digitalWrite(DATAPIN6, LOW);
-//     digitalWrite(DATAPIN7, HIGH);
-//     digitalWrite(READWRITE, LOW);
-//     digitalWrite(REGSELECT, HIGH);
-//     iCommitWrite();
-// }
-
-// void leftCurly()
-// {
-//     Serial.println("[ESP8266][WRITE]-> \")\"");
-//     digitalWrite(DATAPIN4, LOW);
-//     digitalWrite(DATAPIN5, HIGH);
-//     digitalWrite(DATAPIN6, LOW);
-//     digitalWrite(DATAPIN7, LOW);
-//     digitalWrite(READWRITE, LOW);
-//     digitalWrite(REGSELECT, HIGH);
-//     iCommitWrite();
-
-//     digitalWrite(DATAPIN4, HIGH);
-//     digitalWrite(DATAPIN5, LOW);
-//     digitalWrite(DATAPIN6, LOW);
-//     digitalWrite(DATAPIN7, HIGH);
-//     digitalWrite(READWRITE, LOW);
-//     digitalWrite(REGSELECT, HIGH);
-//     iCommitWrite();
-// }

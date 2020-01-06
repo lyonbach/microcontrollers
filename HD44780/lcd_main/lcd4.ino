@@ -61,7 +61,9 @@ void lcd4::iFunctionSet1()
     int bits[6] = {0, 1, 0, 0, 0, 0}; 
     iSetAll(bits);  // 0 1 0 0 00
     iCommitWrite();
+    iSetAllToLow();
 }
+
 
 void lcd4::iFunctionSet(int dataLength, int displayLines, int font) 
 {
@@ -76,8 +78,10 @@ void lcd4::iFunctionSet(int dataLength, int displayLines, int font)
     bits[3] = displayLines;
     iSetAll(bits);  // 00FN 00
     iCommitWrite();
+    iSetAllToLow();
 
 }
+
 
 void lcd4::iSetDisplay(int display, int cursor, int blink)
 {
@@ -96,11 +100,31 @@ void lcd4::iSetDisplay(int display, int cursor, int blink)
     bits[3] = 1;
     iSetAll(bits);
     iCommitWrite();
+    iSetAllToLow();
 }
+
+void lcd4::iShiftCursorOrDisplay(int target, int direction)
+{
+    // Shifts the cursor or display to the left or right.
+    Serial.printf("[ESP8266][INSTRUCTION]-> \"Shift %s to %s\"",
+    (target) ? "Display": "Cursor",
+    (direction) ? "Left" : "Right");
+    int bits[6] = { 1, 0, 0, 0, 0, 0 };
+    iSetAll(bits);
+    iCommitWrite();
+    // int bits[6] = { 0, 0, direction, target, 0, 0 };
+    bits[0] = 0;
+    bits[2] = direction;
+    bits[3] = target;
+
+    iSetAll(bits);
+    iCommitWrite();
+    iSetAllToLow();
+}
+
 
 void lcd4::iSetEntryMode(int increment, int shift)
 {
-    Serial.println("[ESP8266][INSTRUCTION]-> \"Entry Mode Set\"");
     Serial.printf("[ESP8266][INSTRUCTION]-> \"Entry Mode Set\" - increment %d - shift %s\n",
                   increment,
                   (shift) ? "On" : "Off");
@@ -114,6 +138,7 @@ void lcd4::iSetEntryMode(int increment, int shift)
     iSetAll(bits);  // S I/D 1 0 00 -> S: shift, I/D: increment(or decrement)
     iCommitWrite();
 }
+
 
 void lcd4::iReturnHome()
 {   
@@ -140,27 +165,36 @@ void lcd4::iClearDisplay()
 }
 
 
+void lcd4::setScriptMode(bool state)
+{
+    Serial.printf("Script Mode: %s.\n" , (state) ? "On" : "Off");
+    this->scriptMode = state;
+}
+
+
 void lcd4::wChar(char c)
 {
     int* bits = getRomCode(c);
-    
+
     {
     // Write Higher Order Bits
     for (int i = 0; i < 4; i++)
     {
         digitalWrite(dataPins[i], bits[i]);
+        // Serial.printf("dataPins -> %d bits-> %d\n", dataPins[i], bits[i]);
     }
-    digitalWrite(REGSELECT, bits[4]);
-    digitalWrite(READWRITE, bits[5]);
+    digitalWrite(REGSELECT, HIGH);
+    digitalWrite(READWRITE, LOW);
     iCommitWrite();
 
     // Write Higher Order Bits
-    for (int i = 4; i < 8; i++)
+    for (int i = 0; i < 4; i++)
     {
-        digitalWrite(dataPins[8-i], bits[i]);
+        digitalWrite(dataPins[i], bits[4+i]);
+        // Serial.printf("dataPins -> %d bits-> %d\n", dataPins[i], bits[i]);
     }
-    digitalWrite(REGSELECT, bits[4]);
-    digitalWrite(READWRITE, bits[5]);
+    digitalWrite(REGSELECT, HIGH);
+    digitalWrite(READWRITE, LOW);
     iCommitWrite();
 }
 }
