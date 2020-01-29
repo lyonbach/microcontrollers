@@ -26,6 +26,7 @@ if [ "$#" -ne 2 ];then
     exit
 fi
 
+AVAILABLE_BOARDS='pro5v328 esp8266'
 FILENAME=$1
 BOARD=$2
 
@@ -36,8 +37,19 @@ if [ ! $extension == '.ino' ]; then
     exit
 fi
 
-echo $FILENAME
-echo $BOARD
+echo '[INFO]: Starting build ->' $FILENAME
 
-AVAILABLE_BOARDS='pro5v328 esp8266'
+# Check if board is within the supported boards.
+found_board=0
+for board in $AVAILABLE_BOARDS;do
+    if [ $board == $BOARD ];then
+        found_board=1
+    fi
+done
+if [ $found_board == 0 ];then
+    echo '[ERROR]: Given board is not supported.'
+    exit
+fi
+
+echo '[INFO]: Board was selected as ->' $BOARD
 
