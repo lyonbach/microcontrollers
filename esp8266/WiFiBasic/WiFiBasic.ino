@@ -6,27 +6,26 @@
 #define STAPSK "DQJRFCNJ"
 #endif
 
-void setup() 
+void setup()
 {
-  
-      Serial.begin(115200);
-      int status;
-      
-  Serial.println("test");    
-    
-      
+
+        Serial.begin(115200);
+        int status;
+        Serial.flush();
+
+
         Serial.print("Trying connect to ");
         Serial.println(STASSID);
 
         // attempt to connect to Wifi network:
         status = WiFi.begin(STASSID, STAPSK);
         status = WiFi.waitForConnectResult();
-        if (status != WL_CONNECTED) 
+        if (status != WL_CONNECTED)
         {
             Serial.println("Connection Failed");
             while (true) {}
         }
-      
+
         Serial.println("Connected.");
         Serial.print("MAC: ");
         Serial.println(WiFi.macAddress());
@@ -46,6 +45,6 @@ void setup()
 
 void loop()
 {
-    Serial.printf("Loop in cheese!\n");
+    Serial.printf("In Loop...\n");
     delay(2500);
 }
