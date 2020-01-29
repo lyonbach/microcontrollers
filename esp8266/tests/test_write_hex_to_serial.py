@@ -1,4 +1,4 @@
-#!./../../../venv/bin/python
+#!./../../venv/bin/python
 import time
 import random
 import serial
@@ -11,9 +11,9 @@ def get_command():
 
     command = ""
     for i in range(LED_COUNT):
-        command += ''.join([str(hex(random.randrange(255))).ljust(4, '0')[-2:].upper() for i in range(3)])
+        # command += ''.join([str(hex(random.randrange(255))).ljust(4, '0')[-2:].upper() for i in range(3)])
         # print(command)
-        # command += random.choice(("FF0000", "00FF00", "0000FF"))
+        command += random.choice(("FF0000", "00FF00", "0000FF"))
     
     return '#' + command
 
@@ -23,9 +23,10 @@ def write(port_name, message):
         esp.write(message)
 
 if __name__ == "__main__":
-    # command = get_command()
-    # print(command)
-    # write(PORT_NAME, bytes(command, 'utf-8'))
+    command = get_command()
+    print(command)
+    write(PORT_NAME, bytes(command, 'utf-8'))
+    sys.exit()
     bits_sent = 0
     ti = time.time()
     # for i in range(5):
