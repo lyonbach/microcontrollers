@@ -22,6 +22,7 @@ SEPERATOR="#####################################################################
 FILE_FULL_NAME=$(readlink $1 -f --canonicalize)
 FILE_BASENAME=$(basename "$1")
 name_len=${#FILE_BASENAME}
+# FILE_EXT = 
 FILE_NAME_WITHOUT_EXT="${FILE_BASENAME:0:$((name_len-4))}"
 BUILD_PATH=$DEFAULT_TEMP/$(date +%d%m%y)_$FILE_NAME_WITHOUT_EXT
 
@@ -78,6 +79,12 @@ if [ -f $BUILT_BIN ];then
 fi
 
 # Entering the Upload Step
+# First we check if esp is ready.
+if [ ! -e $DEFAULT_PORT ];then
+    echo "[ERROR]: Unable to locate the device on "$DEFAULT_PORT" Aborted..."
+    exit
+fi
+
 /home/lyonbach/.arduino15/packages/esp8266/tools/python3/3.7.2-post1/python3 /home/lyonbach/.arduino15/packages/esp8266/hardware/esp8266/2.6.3/tools/upload.py \
     --chip $CHIP_NAME \
     --port $DEFAULT_PORT \
