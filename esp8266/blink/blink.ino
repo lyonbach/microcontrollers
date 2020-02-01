@@ -8,7 +8,7 @@ void strobe(){
         digitalWrite(LED_BUILTIN, HIGH);
         delay(25);
     }
-    delay(1000);
+    delay(250);
 }
 
 void setup(){
