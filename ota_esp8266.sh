@@ -23,9 +23,14 @@ SEPERATOR="#####################################################################
 FILE_FULL_NAME=$(readlink $1 -f --canonicalize)
 FILE_BASENAME=$(basename "$1")
 name_len=${#FILE_BASENAME}
-# FILE_EXT = 
 FILE_NAME_WITHOUT_EXT="${FILE_BASENAME:0:$((name_len-4))}"
 BUILD_PATH=$DEFAULT_TEMP/$(date +%d%m%y)_$FILE_NAME_WITHOUT_EXT
+
+# Check if file is an ".ino" file, abort otherwise.
+if [[ ! $FILE_FULL_NAME == *".ino" ]];then
+    echo "[ERROR]: Only arduino (\".ino\") files! Aborted..."
+    exit
+fi
 
 # Create the Directory if not [ -d "/path/to/dir" ]
 if [ ! -d $BUILD_PATH ];then
