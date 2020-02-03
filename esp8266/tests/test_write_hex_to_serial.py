@@ -5,7 +5,7 @@ import serial
 import sys
 
 PORT_NAME = "/dev/ttyUSB0"
-BAUDRATE = 256000
+BAUDRATE = 115200
 LED_COUNT = 30
 def get_command():
 

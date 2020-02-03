@@ -2,7 +2,7 @@
 #include "Adafruit_NeoPixel.h"
 
 #define READWRITE 2
-#define DATAPIN 4
+#define DATAPIN D2
 
 char dataRead;
 const static uint8_t colorLength = 6;  // We use hexcolors.
@@ -29,7 +29,9 @@ void flash() {
         Convenient function to be able to tell if any suitable data is recieved without occupying the serial comm.
     */
     digitalWrite(READWRITE, LOW);
+    delay(20);
     digitalWrite(READWRITE, HIGH);
+    delay(20);
 }
 
 
@@ -44,9 +46,6 @@ void listen() {
             parseData();
             // At this point the "command" variable is modified so we are able to do what we want with the command.
             updateStrip();
-        }
-        else
-        {
             Serial.flush();
         }
 
@@ -84,15 +83,15 @@ void updateStrip() {
         g = toDecimal(command[n*colorLength + 2])*16 + toDecimal(command[n*colorLength + 3]);
         b = toDecimal(command[n*colorLength + 4])*16 + toDecimal(command[n*colorLength + 5]);
         strip.setPixelColor(n, r, g, b);
+        Serial.printf("%d, %d, %d", r, g, b);
     }
-    Serial.printf("%d, %d, %d", r, g, b);
     strip.show();
 }
 
 void setup() {
 
     // Setup serial comm.
-    Serial.begin(256000);
+    Serial.begin(115200);
     pinMode(READWRITE, OUTPUT);
 
     // Setup the led strip.
