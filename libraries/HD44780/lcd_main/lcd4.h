@@ -60,13 +60,13 @@ For ESP8266, the pin selection is described in the table below.
 #include "lcd4_helpers.h"
 
 // PIN DEFINITIONS
-#define DATAPIN4 0
-#define DATAPIN5 4
-#define DATAPIN6 5
-#define DATAPIN7 16
-#define   ENABLE 2
-#define REGSELECT 14
-#define READWRITE 12
+#define DATAPIN4 D3 //0
+#define DATAPIN5 D2 //4
+#define DATAPIN6 D1 //5
+#define DATAPIN7 D0 //16
+#define   ENABLE D8 //2
+#define REGSELECT D5 //14
+#define READWRITE D6 //12
 
 struct lcd4
 {
