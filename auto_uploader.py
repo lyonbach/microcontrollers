@@ -1,3 +1,4 @@
+#!/home/lyonbach/Programs/python375/bin/python3
 """
 This program serves as a tiny automation tool for my arduino program development
 pipeline.
@@ -17,7 +18,7 @@ BOARDTAG = 'pro5v328'
 ARDUINO_REPO = '/home/lyonbach/repositories/microcontrollers/arduino'
 
 MAKEFILE = ['MAKEFILE_COMMANDS = "ARDUINO_DIR = /usr/share/arduino"\n',
-            'ARDUINO_PORT = /dev/ttyACM*\n\n',
+            'ARDUINO_PORT = /dev/ttyUSB0',
             'USER_LIB_PATH = /home/pi/sketchbook/libraries\n',
             'BOARD_TAG = {}\n\n'.format(BOARDTAG),
             'include /usr/share/arduino/Arduino.mk']

@@ -83,24 +83,7 @@ if [ -f $BUILT_BIN ];then
     exit
 fi
 
-# Entering the Upload Step
-# First we check if esp is ready.
-if [ ! -e $DEFAULT_PORT ];then
-    echo "[ERROR]: Unable to locate the device on "$DEFAULT_PORT" Aborted..."
-    exit
-fi
-
-/home/lyonbach/.arduino15/packages/esp8266/tools/python3/3.7.2-post1/python3 \
-/home/lyonbach/.arduino15/packages/esp8266/hardware/esp8266/2.6.3/tools/upload.py \
-    --chip $CHIP_NAME \
-    --port $DEFAULT_PORT \
-    --baud $DEFAULT_BAUD_RATE \
-    --before default_reset \
-    --after hard_reset write_flash 0x0 \
-    $BUILT_BIN
-
-echo "[INFO]: File uploaded successfully!"
+echo "[INFO]: File compiled!"
 echo "[SUMMARY]:"
 echo "Sketch Full Name: "$FILE_FULL_NAME
 echo "Created Binary  : "$BUILT_BIN
-echo "Uploaded to     : "$CHIP_NAME" at "$DEFAULT_PORT
