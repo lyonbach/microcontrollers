@@ -1,11 +1,4 @@
-# This script automates the sketch build ready for uploading arduino pro mini
-# Board specifications should be checked but it should work for arduino Uno too.
-# Output type to upload is ".hex".
-# Everthing is done in in two steps:
-# We use arduino builder executable file to create the hex file and upload it using avrdude.
-# Step 1 - Build Step
-# Step 2 - Upload Step
-# This script only handles Step 1.
+# This script automates hex file creation from arduino sketch files for arduino pro mini
 ############################################################################# Bahadir Arslan ###########################
 
 # Definitions
@@ -44,7 +37,7 @@ DEFAULT_TEMP=/tmp
 
 # Entry Point
 if [ $# -eq 0 ];then
-    error 'Usage: ./ul_arduino.sh <FILENAME>.ino'
+    error 'Usage: ./comp_arduino.sh <FILENAME>.ino'
     exit
 fi
 
